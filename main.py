@@ -4,8 +4,11 @@ import os
 
 app = Flask(__name__)
 
-# Agora pega o token corretamente da variável de ambiente BOT_TOKEN
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+@app.route('/')
+def home():
+    return "🤖 Bot rodando! Envie mensagens no Telegram para testar."
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -25,7 +28,4 @@ def send_message(chat_id, text):
     requests.post(url, json=payload)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
-@app.route('/')
-def home():
-    return "🤖 Bot rodando! Envie mensagens no Telegram para testar."
+     app.run(host='0.0.0.0', port=10000)
