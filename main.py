@@ -3,6 +3,8 @@ import requests
 import os
 
 app = Flask(__name__)
+
+# Pega o token do ambiente, setado na Render
 BOT_TOKEN = os.getenv("8291584482:AAHXT9gACC7M6pW6t-5gC3bwjqNd1O9NEsU")
 
 @app.route('/webhook', methods=['POST'])
@@ -23,4 +25,6 @@ def send_message(chat_id, text):
     requests.post(url, json=payload)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    # Render usa PORT automaticamente. Pegamos ela com getenv
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
