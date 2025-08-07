@@ -9,8 +9,8 @@ from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandle
 
 from pagamento import criar_order_pix
 
-BOT_TOKEN = os.environ.get("8291584482:AAHXT9gACC7M6pW6t-5gC3bwjqNd1O9NEsU")
-GRUPO_VIP_LINK = os.environ.get("https://t.me/+n5fFL4LvDDMzMThh")
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+GRUPO_VIP_LINK = os.environ.get("GRUPO_VIP_LINK")
 
 logging.basicConfig(level=logging.INFO)
 

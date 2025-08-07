@@ -2,7 +2,8 @@ import requests
 import uuid
 import os
 
-ACCESS_TOKEN = os.environ.get("TEST-6493240016618428-080712-5beedde3d93eedec2a167e46994ed539-1782895287")
+ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
+
 
 def criar_order_pix(valor, descricao, referencia_externa):
     url = "https://api.mercadopago.com/v1/orders"
