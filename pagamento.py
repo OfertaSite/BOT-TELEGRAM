@@ -4,7 +4,6 @@ import os
 
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 
-
 def criar_order_pix(valor, descricao, referencia_externa):
     url = "https://api.mercadopago.com/v1/orders"
 
