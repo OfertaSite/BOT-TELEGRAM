@@ -82,6 +82,8 @@ if __name__ == "__main__":
     application.run_webhook(
         listen="0.0.0.0",
         port=port,
-        webhook_path="/webhook",
+        url_path="/webhook",
         webhook_url=f"{os.environ.get('RENDER_EXTERNAL_URL')}/webhook"
     )
+
+
