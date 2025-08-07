@@ -33,7 +33,9 @@ async def assinar(update: Update, context: ContextTypes.DEFAULT_TYPE):
     referencia = f"user_{user_id}_{uuid.uuid4().hex[:8]}"
     
     pagamento = criar_order_pix(19.90, "Assinatura VIP - 1 mês", referencia)
-
+    
+    logging.info(f"Pagamento criado: {pagamento}")  # <-- log aqui
+   
     if pagamento:
         keyboard = [[
             InlineKeyboardButton("✅ Já paguei", callback_data=f"confirmar_{referencia}")
