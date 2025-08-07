@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("8291584482:AAHXT9gACC7M6pW6t-5gC3bwjqNd1O9NEsU")
 
 @app.route('/')
 def home():
