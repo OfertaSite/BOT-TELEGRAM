@@ -1,12 +1,8 @@
 import requests
 import uuid
 import os
-from dotenv import load_dotenv
 
-load_dotenv()  # <- carrega o .env
-
-ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
-
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 
 def criar_order_pix(valor, descricao, referencia_externa):
     url = "https://api.mercadopago.com/v1/orders"
@@ -42,11 +38,12 @@ def criar_order_pix(valor, descricao, referencia_externa):
 
     if response.status_code == 201:
         data = response.json()
+        print("✅ Pedido criado com sucesso:", data)
         return {
-            "order_id": data["id"],
-            "qr_code_string": data["qr_data"]["qr_code"],
-            "qr_code_img_base64": data["qr_data"]["image"]
+            "order_id": data.get("id"),
+            "qr_code_string": data.get("qr_data", {}).get("qr_code"),
+            "qr_code_img_base64": data.get("qr_data", {}).get("image")
         }
     else:
-        print(f"Erro: {response.status_code} - {response.text}")
+        print(f"❌ Erro {response.status_code}: {response.text}")
         return None
