@@ -1,8 +1,11 @@
 import requests
 import uuid
 import os
+from dotenv import load_dotenv
 
-ACCESS_TOKEN = "TEST-6493240016618428-080712-5beedde3d93eedec2a167e46994ed539-1782895287"
+load_dotenv()  # <- carrega o .env
+
+ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 
 
 def criar_order_pix(valor, descricao, referencia_externa):
