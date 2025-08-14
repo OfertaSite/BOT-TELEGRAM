@@ -31,36 +31,29 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def assinar(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     referencia = f"user_{user_id}_{uuid.uuid4().hex[:8]}"
-    
+
     pagamento = criar_order_pix(19.90, "Assinatura VIP - 1 mês", referencia)
-    
-    logging.info(f"Pagamento criado: {pagamento}")  # <-- log aqui
-   
+    logging.info(f"Pagamento criado: {pagamento}")
+
     if pagamento:
         keyboard = [[
             InlineKeyboardButton("✅ Já paguei", callback_data=f"confirmar_{referencia}")
         ]]
         await update.message.reply_text(
             "✅ PIX gerado!\n\n"
-            "Copie e cole o código Pix no seu app bancário:\n\n"
+            "📥 Copie e cole o código Pix no seu app bancário:\n\n"
             f"`{pagamento['qr_code_string']}`",
             parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(keyboard)
         )
 
+        from base64 import b64decode
+        from io import BytesIO
         qr_bytes = BytesIO(b64decode(pagamento["qr_code_img_base64"]))
         qr_file = InputFile(qr_bytes, filename="qrcode.png")
         await update.message.reply_photo(photo=qr_file, caption="📸 Escaneie o QR Code")
     else:
-        await update.message.reply_text("❌ Erro ao gerar pagamento.")
-
-async def confirmar_pagamento(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    await query.answer("Verificando...")
-
-    await query.edit_message_text(
-        f"✅ Pagamento confirmado!\n\n🔓 Acesso liberado!\n{GRUPO_VIP_LINK}"
-    )
+        await update.message.reply_text("❌ Erro ao gerar pagamento. Tente novamente mais tarde.")
 
 # Adiciona handlers ao bot
 application.add_handler(CommandHandler("start", start))
